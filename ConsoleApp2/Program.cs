@@ -15,7 +15,9 @@ namespace ConsoleApp2
     }
     class ParkingGarage
     {
-        private string[] parking = new string[100];
+        //const int parkingSpaces = 100;
+        public int parked = 0;
+        public string[] parking = new string[100];
         public void MainMenu()
         {
 
@@ -121,11 +123,12 @@ namespace ConsoleApp2
             string regNumberCar;
 
 
-            for (int i = 0; i < parking.Length; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine("Skriv in ditt regnr:");
                 regNumberCar = Console.ReadLine();
                 parking[i] = regNumberCar;
+                parked++;
 
             }
             //for (int i = 0; i < parking.Length; i++)
@@ -135,11 +138,11 @@ namespace ConsoleApp2
             //Array.Resize(ref parking, parking.Length + 1);
             //parking[parking.Length - 1] = regNumberCar;
             //}
-            Array.Sort(parking);
-            foreach (var e in parking)
-            {
-                Console.WriteLine(e);
-            }
+            //Array.Sort(parking);
+            //foreach (var e in parking)
+            //{
+              //  Console.WriteLine(e);
+            //}
         }
 
         private void CompareLenghtOnString(int lenght, int compare)
@@ -170,7 +173,7 @@ namespace ConsoleApp2
         {
             for (int j = 0; j < parking.Length; j++)
             {
-                Console.WriteLine("Dina bilar står här:" , parking[j]);
+                Console.WriteLine("Dina bilar står här: {0}" , parking[j]);
             }
             Console.ReadLine();
         }
