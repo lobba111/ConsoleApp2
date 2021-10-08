@@ -53,7 +53,8 @@ namespace ConsoleApp2
                             {
                                 Console.WriteLine("Thanks for using Prague parking assistance");
                                 Console.WriteLine("Have a nice day!");
-                                return false;
+                                return false; 
+                                
                             }
                         case "5":
                             {
@@ -123,41 +124,120 @@ namespace ConsoleApp2
             
         }
 
-        public static bool RelocateVehicle(string[] parking)
+        public static void RelocateVehicle(string[] parking)
         {
-            int y = 0;
-            Console.WriteLine("Ange Regnummer: ");
-            string regnummer = Console.ReadLine();
-            Array.Sort(parking);
-            
-            
-            for (int i = 1; i <= parking.Length; i++)
+            Console.WriteLine("Car or MC");
+            switch (Console.ReadLine().ToUpper())
             {
-               
-            int index = Array.BinarySearch(parking, regnummer);
-            Console.WriteLine("{0}", index);
+                case "CAR":
+                    {
+                        Console.WriteLine("Type the registration number: ");
+                        string hit = "CAR" + "_" + Console.ReadLine().ToUpper() + "%";
+                        for (int i = 1; i < parking.Length - 1; i++)
+                        {
+                            if (hit == parking[i])
+                            {
+                                Console.WriteLine("{0} is located at {1}", hit, i);
+                            }
+                        
+                        Console.WriteLine("Do you wish to relocate? (y/n)");
+                        string answer = Console.ReadLine().ToLower();
+                        string yes = "y";
+                        string no = "n";
+                        if (answer == yes)
+                        {
+                            Console.WriteLine("Enter a Parkingspot: (1-100)");
+                            string relocate = Console.ReadLine();
+                            int index = int.Parse(relocate);
+                            var buffer = parking[i];
+                            parking[i] = parking[index];
+                            parking[index] = buffer;
+                            Console.WriteLine("Car: {0}, Successfully moved to spot : {1}", hit, index);
+                            Console.ReadKey();
+                            MainMenu(parking);
+                        }
+                        while (answer == no)
+                        {
+                            ParkVehicle(parking);
+                            break;
+                        }
+                        }
+
+                        return;
+                    }
+                case "MC":
+                    {
+                        Console.WriteLine("Type the registration number: ");
+                        string hit = "MC" + "_" + Console.ReadLine().ToUpper();
+                        for (int i = 1; i < parking.Length - 1; i++)
+                        {
+                            if (hit == parking[i])
+                            {
+                                Console.WriteLine("{0} is located at {1}", hit, i);
+                            }
+
+                            Console.WriteLine("Do you wish to relocate? (y/n)");
+                            string answer = Console.ReadLine().ToLower();
+                            string yes = "y";
+                            string no = "n";
+                            if (answer == yes)
+                            {
+                                Console.WriteLine("Enter a Parkingspot: (1-100)");
+                                string relocate = Console.ReadLine();
+                                int index = int.Parse(relocate);
+                                    //parking[i] = hit.Remove('#', '%');
+                                    parking[i] = hit.TrimEnd('#', '%');
+                                    var buffer = parking[i];
+                                    parking[i] = parking[index];
+                                    parking[index] = buffer;
+                                    Console.WriteLine("MC: {0}, Successfully moved to spot : {1}", hit, index);
+                                    Console.ReadKey();
+                                    MainMenu(parking);
+                                
+                                
+                                
+
+                            }
+                            while (answer == no)
+                            {
+                                ParkVehicle(parking);
+                                break;
+                            }
+                        }
+
+                        return;
+                    }
+
+
+                default:
+                    {
+                        Console.WriteLine("Invalid Input!");
+                        return;
+                    }
+
+
+            }
 
             //if (parking[i] == regnummer)
-            //    {
-            //        continue;
-            //    }
-            //    //int index = int.Parse(parking[i]);
-            //    //var index = parking[i].IndexOf("CAR_", '%', +1);
-                
-            //    if (parking[i].Contains("LEDIGT"))
-            //    {
-            //        continue;
-            //    }
-            //    if (parking.Length <= y || parking.Length <= index) return false;
-            //    {
+            //{
+            //    continue;
+            //}
+            //int index = int.Parse(parking[i]);
+            //var index = parking[i].IndexOf("CAR_", '%', +1);
+
+            //if (parking[i].Contains("LEDIGT"))
+            //{
+            //    continue;
+            //}
+            //if (parking.Length <= y || parking.Length <= index) return false;
+            //{
             //    var buffer = parking[i];
             //    parking[i] = parking[y];
             //    parking[y] = buffer;
-            //    }
-            }
-            Console.ReadKey();
-            return true;
-            
+            //}
+
+
+
             //Console.WriteLine("Ange Regnummer: ");
             //string regnummer = Console.ReadLine().ToUpper(); 
             //for (int i = 1; i < parking.Length -1; i++)
@@ -267,11 +347,11 @@ namespace ConsoleApp2
             Console.Clear();
             for (int j = 1; j < parking.Length; j++)
             {
-                var charsToHide = new char[] { '%', '#' };
-                foreach (var c in charsToHide)
-                {
-                    parking[j] = parking[j].Trim(charsToHide);
-                }
+                //var charsToHide = new char[] { '%', '#' };
+                //foreach (var c in charsToHide)
+                //{
+                //    parking[j] = parking[j].Trim(charsToHide);
+                //}
 
                 if (parking[j].Contains("LEDIGT"))
                 {
